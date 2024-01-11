@@ -1,52 +1,67 @@
-import { AppShell, Box, Burger } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import Logo from '../../../assets/react.svg';
-import { NavLink } from 'react-router-dom';
-import { Search } from 'tabler-icons-react';
-import { Bell } from 'tabler-icons-react';
-import { Home } from 'tabler-icons-react';
-import { Book } from 'tabler-icons-react';
-import { Users } from 'tabler-icons-react';
-import { BrandBlogger } from 'tabler-icons-react';
-import { InfoSquare } from 'tabler-icons-react';
-import { QuestionMark } from 'tabler-icons-react';
-import { DashboardRoutes } from '../dashboard-routes';
+import { AppShell, Box, Burger } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import Logo from "../../../assets/react.svg";
+import { NavLink } from "react-router-dom";
+import { Search } from "tabler-icons-react";
+import { Bell } from "tabler-icons-react";
+import { LayoutDashboard } from "tabler-icons-react";
+import { Book } from "tabler-icons-react";
+import { Category } from "tabler-icons-react";
+import { Settings } from "tabler-icons-react";
+import { QuestionMark } from "tabler-icons-react";
+import { DashboardRoutes } from "../dashboard-routes";
+import { PiChalkboardTeacherLight } from "react-icons/pi";
+import { PiStudent } from "react-icons/pi";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { RiGraduationCapFill } from "react-icons/ri";
+
 
 const navItem = [
   {
-    label: 'Dashboard',
-    path: '/',
-    icon: <Home size={30} strokeWidth={2} />,
+    label: "Dashboard",
+    path: "/",
+    icon: <LayoutDashboard size={24} />,
+  },
+
+  {
+    label: "Batch",
+    path: "/batch",
+    icon: <RiGraduationCapFill size={24} />,
   },
   {
-    label: 'Courses',
-    path: '/courses',
-    icon: <Book size={30} strokeWidth={2} />,
+    label: "Categories",
+    path: "/categories",
+    icon: <Category size={24} strokeWidth={2} />,
   },
   {
-    label: 'Categories',
-    path: '/categories',
-    icon: <Book size={30} strokeWidth={2} />,
+    label: "Courses",
+    path: "/courses",
+    icon: <Book size={24} />,
   },
   {
-    label: 'User',
-    path: '/user',
-    icon: <Users size={30} strokeWidth={2} />,
+    label: "Teachers",
+    path: "/teachers",
+    icon: <PiChalkboardTeacherLight size={24} />,
   },
   {
-    label: 'Blogs',
-    path: '/blogs',
-    icon: <BrandBlogger size={30} strokeWidth={2} />,
+    label: "Students Directory",
+    path: "/student",
+    icon: <PiStudent size={24} />,
   },
   {
-    label: 'Contact',
-    path: '/contact',
-    icon: <InfoSquare size={30} strokeWidth={2} />,
+    label: "Accounting",
+    path: "/accounting",
+    icon: <MdOutlineAccountBalanceWallet size={24} />,
   },
   {
-    label: 'Help & Support',
-    path: '/help',
-    icon: <QuestionMark size={30} strokeWidth={2} />,
+    label: "Application Settings",
+    path: "/application-setting",
+    icon: <Settings size={24} />,
+  },
+  {
+    label: "Help & Support",
+    path: "/help",
+    icon: <QuestionMark size={24} />,
   },
 ];
 
@@ -56,12 +71,12 @@ export function BasicAppShell() {
   return (
     <AppShell
       header={{ height: 65 }}
-      navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !opened } }}
+      navbar={{ width: 300, breakpoint: "sm", collapsed: { mobile: !opened } }}
     >
       <AppShell.Header>
-        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         <Box className="h-xxl w-full flex items-center p-sm">
-          <div className="font-black text-4xl w-[20%]">Krafters</div>
+        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" className="mr-xs" />
+          <div className="font-black text-xl md:text-3xl mr-xs">Krafters</div>
           <div className="flex justify-between h-xl w-full">
             <div className="flex items-center bg-gray-100 w-1/2 rounded-lg p-xs">
               <Search size={30} strokeWidth={2} />
@@ -80,14 +95,18 @@ export function BasicAppShell() {
       </AppShell.Header>
       <AppShell.Navbar p="md">
         {navItem.map((v, key) => (
-            <NavLink
+          <NavLink
             key={key}
-              to={v.path}
-              className={({ isActive }) =>`text-xl no-underline font-semibold flex items-center p-xs mb-xs rounded-lg ${isActive? 'bg-orange-500 text-white': 'text-black'}`}
-            >
-              <div className='mr-xs'>{v.icon}</div>
-              <div>{v.label}</div>
-            </NavLink>
+            to={v.path}
+            className={({ isActive }) =>
+              `no-underline font-medium flex items-center p-xs mb-xs rounded-md gap-xs ${
+                isActive ? "bg-orange-500 text-white" : "text-black"
+              }`
+            }
+          >
+            <div>{v.icon}</div>
+            <div className="text-lg">{v.label}</div>
+          </NavLink>
         ))}
       </AppShell.Navbar>
       <AppShell.Main>

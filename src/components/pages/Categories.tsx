@@ -9,26 +9,54 @@ const Categories = () => {
   const navigate = useNavigate();
   return (
     <div className="p-md border border-red-300 border-solid bg-gray-100">
-      <div className="flex justify-between items-center mb-sm">
-        <div className="font-semibold text-xl">Category</div>
+      {/* <div className="flex justify-between items-center mb-sm">
+        <div className="font-semibold lg:text-4xl md:text-xl text-md">
+          Category
+        </div>
         <div className="flex items-center gap-xs">
-           
-        <div className="flex items-center border border-solid rounded-lg overflow-hidden">
+          <div className="flex items-center border border-solid rounded-lg overflow-hidden">
             <input
-                type="text"
-                placeholder="Search"
-                className="w-[300px] px-sm py-xs outline-none border-none"
+              type="text"
+              placeholder="Search"
+              className="w-[300px] px-sm py-xs outline-none border-none"
             />
             <div className="cursor-pointer font-medium p-xs bg-white">
-            <Search size={26} strokeWidth={2} />
+              <Search size={26} strokeWidth={2} />
             </div>
-        </div>
+          </div>
 
           <div
-            onClick={() => navigate('/new-category')}
-            className="flex items-center border border-solid p-xs cursor-pointer bg-blue-900 text-white"
+            onClick={() => navigate("/add-category")}
+            className="flex items-center border border-solid p-xs cursor-pointer bg-blue-900 text-white rounded-sm"
           >
             <div className="mr-xs text-base font-semibold">Add New Category</div>
+            <div className="">
+              <Plus size={26} strokeWidth={2} />
+            </div>
+          </div>
+        </div>
+      </div> */}
+      <div className="flex sm:flex-row flex-col justify-between items-center mb-sm">
+        <div className="font-semibold lg:text-4xl md:text-xl text-md">
+          Category
+        </div>
+        <div className="flex items-center gap-xs">
+          <div className="flex items-center max-w-[300px] border border-solid rounded-lg overflow-hidden">
+            <input
+              type="text"
+              placeholder="Search"
+              className="w-full md:px-sm md:py-xs px-[4px] py-[2px] outline-none border-none"
+            />
+            <div className="cursor-pointer font-medium md:p-xs p-[2px] bg-white">
+              <Search size={26} strokeWidth={2} />
+            </div>
+          </div>
+
+          <div
+            onClick={() => navigate("/add-category")}
+            className="flex items-center md:gap-xs gap-[2px] border border-solid md:p-xs p-[2px] cursor-pointer bg-blue-900 text-white rounded-sm"
+          >
+            <div className="md:text-base text-xs font-semibold sm:block hidden">Add New Category</div>
             <div className="">
               <Plus size={26} strokeWidth={2} />
             </div>
@@ -47,7 +75,7 @@ const Categories = () => {
             <td className='flex items-center gap-sm'><p><img src={img1} alt="" height={64} width={64} /></p> <p>Development</p></td>
             <td>Jan 2, 2024</td>
             <td className='flex items-center gap-xs'>
-              <p><Edit size={28} strokeWidth={2} /></p>
+              <p onClick={()=>navigate('/edit-categoy')}><Edit size={28} strokeWidth={2} /></p>
               <p><Trash size={28} strokeWidth={2} /></p>
             </td>
           </tr>
