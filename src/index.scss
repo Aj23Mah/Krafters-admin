@@ -31,6 +31,10 @@ code {
         monospace;
 }
 
+.group:hover .dropdown {
+    display: block;
+}
+
 // @media (max-width: 1440px) {
 //     body {
 //         font-size: 13px;

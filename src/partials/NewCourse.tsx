@@ -1,13 +1,31 @@
-import { useState } from 'react';
-import { NativeSelect, rem } from '@mantine/core';
-import { IconChevronDown } from '@tabler/icons-react';
+import React, { useRef, useState } from "react";
+import { NativeSelect, rem } from "@mantine/core";
+import { IconChevronDown } from "@tabler/icons-react";
+import { CloudUpload } from "tabler-icons-react";
 
 const NewCourse = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    processFile(event.target.files?.[0]);
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    processFile(event.dataTransfer.files[0]);
+  };
+
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const processFile = (file: File | undefined) => {
     if (file) {
       setSelectedFile(file);
 
@@ -18,6 +36,7 @@ const NewCourse = () => {
       reader.readAsDataURL(file);
     }
   };
+
   return (
     <div className="p-lg">
       <div className="font-bold text-xl">Add New Course</div>
@@ -30,13 +49,11 @@ const NewCourse = () => {
       </div>
       <div className="flex gap-xxl w-[90%] mb-lg">
         <div className="w-[30%]">
-          {/* <NativeSelect
-            className="w-full outline-none border border-solid rounded-md"
-            data={['Select Course','React', 'Figma', 'Flutter']}
-          /> */}
-          <NativeSelect rightSection={
+          <NativeSelect
+            rightSection={
               <IconChevronDown style={{ width: rem(16), height: rem(16) }} />
-            }>
+            }
+          >
             <optgroup label="Frontend libraries">
               <option value="react">React</option>
               <option value="figma">Figma</option>
@@ -96,29 +113,46 @@ const NewCourse = () => {
           ></textarea>
         </div>
       </div>
+
       <div className="mb-lg">
-        <span className="text-lg font-semibold mb-sm">Add an image</span>
-        <div>
-          <input type="file" onChange={handleFileChange} />
-          {selectedFile && (
-            <div>
-              <p className="text-md">Selected File: {selectedFile.name}</p>
-              <div className="w-[25%]">
-                <img
-                  src={imageUrl ?? ''}
-                  alt="Uploaded File"
-                  style={{ maxWidth: '100%' }}
-                />
-              </div>
+        <div
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          onClick={handleClick}
+          className="border-2 border-dashed border-gray-500 rounded-md p-xs text-center cursor-pointer grid place-items-center h-[300px] w-[300px]"
+        >
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt="Uploaded File"
+              className="max-w-full h-auto mx-auto"
+            />
+          ) : (
+            <div className="font-medium text-gray-500 text-md">
+              <CloudUpload size={48} strokeWidth={2} />
+              <p>Drag and drop files here or click to select</p>
             </div>
           )}
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
         </div>
+        {selectedFile && (
+          <p className="text-md my-2">
+            Selected File Name: {selectedFile.name}
+          </p>
+        )}
       </div>
       <div className="flex gap-lg">
         <button className="py-xs px-md text-lg font-medium rounded-md bg-blue-600 text-white cursor-pointer border-none">
           Create Course
         </button>
-        <button className="py-xs px-md text-lg font-medium rounded-md bg-white text-black cursor-pointer">Cancel</button>
+        <button className="py-xs px-md text-lg font-medium rounded-md bg-white text-black cursor-pointer">
+          Cancel
+        </button>
       </div>
     </div>
   );

@@ -2,14 +2,15 @@ import { useState } from "react";
 import { Plus } from "tabler-icons-react";
 import { useNavigate } from "react-router";
 import { Search } from "tabler-icons-react";
-import { Avatar, Tabs } from "@mantine/core";
-import { Card, Image, Text, Button, Group } from "@mantine/core";
-import userImg from "../../assets/images/img5.png";
+import { Tabs } from "@mantine/core";
+import { Card, Text, Button, Group } from "@mantine/core";
+import userImg from "../../assets/images/img1.png";
+import { Avatar } from "@mantine/core";
 import { Dots } from "tabler-icons-react";
 import { Edit } from "tabler-icons-react";
 import { Trash } from "tabler-icons-react";
 
-const Courses = () => {
+const Teachers = () => {
   const navigate = useNavigate();
   const [openDropdown, setOpenDropdown] = useState(null);
 
@@ -21,37 +22,33 @@ const Courses = () => {
     }
   };
 
-  const CoursesData = [
+  const TeachersData = [
     {
-      name: "GuyHawkins",
-      label: "Cybersecurity Unveiled: Safeguarding the Digital Frontier",
+      name: "Jane Copper",
+      email: "janecopper10@gmail.com",
       userURL: userImg,
-      coursesURL: userImg,
-    },
-    {
-      name: "Thresa Webbr",
-      label: "Objective C Courses",
-      userURL: userImg,
-      coursesURL: userImg,
-    },
-    {
-      name: "Darrell Steward",
-      label: "Vuejs Courses",
-      userURL: userImg,
-      coursesURL: userImg,
     },
     {
       name: "Jane Copper",
-      label: "janecopper10@gmail.com",
+      email: "janecopper10@gmail.com",
       userURL: userImg,
-      coursesURL: userImg,
+    },
+    {
+      name: "Jane Copper",
+      email: "janecopper10@gmail.com",
+      userURL: userImg,
+    },
+    {
+      name: "Jane Copper",
+      email: "janecopper10@gmail.com",
+      userURL: userImg,
     },
   ];
   return (
     <div className="p-md border border-red-300 border-solid bg-gray-100">
       <div className="flex sm:flex-row flex-col justify-between items-center mb-sm">
         <div className="font-semibold lg:text-4xl md:text-xl text-md">
-          Courses
+          Teachers
         </div>
         <div className="flex items-center gap-xs">
           <div className="flex items-center max-w-[300px] border border-solid rounded-lg overflow-hidden">
@@ -66,10 +63,12 @@ const Courses = () => {
           </div>
 
           <div
-            onClick={() => navigate("/add-courses")}
+            onClick={() => navigate("/add-teacher")}
             className="flex items-center md:gap-xs gap-[2px] border border-solid md:p-xs p-[2px] cursor-pointer bg-blue-900 text-white rounded-sm"
           >
-            <div className="md:text-base text-xs font-semibold sm:block hidden">Add New Courses</div>
+            <div className="md:text-base text-xs font-semibold sm:block hidden">
+              Add New Teacher
+            </div>
             <div className="">
               <Plus size={26} strokeWidth={2} />
             </div>
@@ -81,19 +80,19 @@ const Courses = () => {
         <Tabs defaultValue="gallery">
           <Tabs.List mb="sm">
             <Tabs.Tab fw={500} value="active" size="xl" mb="md">
-              Active Courses
+              Active Teachers
             </Tabs.Tab>
             <Tabs.Tab fw={500} value="pending" size="xl" mb="md">
-              Pending Courses
+              Pending Teachers
             </Tabs.Tab>
             <Tabs.Tab fw={500} value="inactive" size="xl" mb="md">
-              Inactive Courses
+              Inactive Teachers
             </Tabs.Tab>
             <Tabs.Tab fw={500} value="blocked" size="xl" mb="md">
-              Blocked Courses
+              Blocked Teachers
             </Tabs.Tab>
             <Tabs.Tab fw={500} value="all" size="xl" mb="md">
-              All Courses
+              All Teachers
             </Tabs.Tab>
           </Tabs.List>
 
@@ -105,8 +104,11 @@ const Courses = () => {
 
           <Tabs.Panel value="blocked">Blocked tab content</Tabs.Panel>
 
-          <Tabs.Panel value="all" className="flex gap-sm flex-wrap flex-auto p-sm">
-            {CoursesData.map((v, key) => (
+          <Tabs.Panel
+            value="all"
+            className="flex gap-sm flex-wrap flex-auto p-sm"
+          >
+            {TeachersData.map((v, key) => (
               <Card
                 key={key}
                 shadow="sm"
@@ -116,38 +118,8 @@ const Courses = () => {
                 className="w-full md:w-1/2 lg:w-1/5 grow"
               >
                 <Card.Section p="lg">
-                  <Image
-                    // className="object-contain object-center"
-                    // src={v.coursesURL}
-                    src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
-                    height={160}
-                    radius="sm"
-                    alt="Norway"
-                  />
-                </Card.Section>
-
-                <Group mb={14}>
-                  <Text fw={700} size="xl">
-                    {v.label}
-                  </Text>
-                </Group>
-
-                <Group mb="md" justify="space-between">
-                  <div className="flex gap-xs">
-                    <Avatar
-                      component="a"
-                      href="https://github.com/rtivital"
-                      target="_blank"
-                      size={30}
-                      src={v.userURL}
-                      alt="it's me"
-                    />
-                    <Text fw={500} color="gray">
-                      {v.name}
-                    </Text>
-                  </div>
-
-                  <div className="relative inline-block">
+                  <div className="flex justify-end">
+                    <div className="relative inline-block">
                       <button
                         onClick={() => toggleDropdown(key)}
                         className="text-black bg-white px-sm py-[4px] rounded focus:outline-none border-none"
@@ -155,7 +127,7 @@ const Courses = () => {
                         <Dots size={24} strokeWidth={2} />
                       </button>
                       {openDropdown === key && (
-                        <div className="absolute bg-slate-100 border rounded mt-[4px] right-xl top-none pr-xl z-10">
+                        <div className="absolute bg-slate-100 border rounded mt-[4px] right-none pr-xl z-10">
                           <ul className="list-none">
                             <li className="hover:bg-gray-300 flex items-center gap-xs">
                               <Trash size={24} strokeWidth={2} /> <p>Delete</p>
@@ -167,6 +139,31 @@ const Courses = () => {
                         </div>
                       )}
                     </div>
+                  </div>
+
+                  <div className="flex justify-center items-center p-xs">
+                    <Avatar
+                      component="a"
+                      href="https://github.com/rtivital"
+                      target="_blank"
+                      size={160}
+                      // src={v.userURL}
+                      src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
+                      alt="it's me"
+                    />{" "}
+                  </div>
+                </Card.Section>
+
+                <Group justify="center" mt="md">
+                  <Text fw={700} size="xl">
+                    {v.name}
+                  </Text>
+                </Group>
+
+                <Group justify="center" mb="md">
+                  <Text fw={500} color="gray">
+                    {v.email}
+                  </Text>
                 </Group>
 
                 <Button color="blue" fullWidth radius="md" py={8}>
@@ -181,4 +178,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default Teachers;
