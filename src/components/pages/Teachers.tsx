@@ -4,8 +4,7 @@ import { useNavigate } from "react-router";
 import { Search } from "tabler-icons-react";
 import { Tabs } from "@mantine/core";
 import { Card, Text, Button, Group } from "@mantine/core";
-import userImg from "../../assets/images/img1.png";
-import { Avatar } from "@mantine/core";
+import userImg from "../../assets/images/user-icon.png";
 import { Dots } from "tabler-icons-react";
 import { Edit } from "tabler-icons-react";
 import { Trash } from "tabler-icons-react";
@@ -23,6 +22,11 @@ const Teachers = () => {
   };
 
   const TeachersData = [
+    {
+      name: "Jane Copper",
+      email: "janecopper10@gmail.com",
+      userURL: userImg,
+    },
     {
       name: "Jane Copper",
       email: "janecopper10@gmail.com",
@@ -106,7 +110,7 @@ const Teachers = () => {
 
           <Tabs.Panel
             value="all"
-            className="flex gap-sm flex-wrap flex-auto p-sm"
+            className="flex gap-lg flex-wrap flex-auto p-sm"
           >
             {TeachersData.map((v, key) => (
               <Card
@@ -115,7 +119,7 @@ const Teachers = () => {
                 padding="lg"
                 radius="md"
                 withBorder
-                className="w-full md:w-1/2 lg:w-1/5 grow"
+                className="w-full md:w-1/2 lg:w-1/5 md:flex-none flex-auto"
               >
                 <Card.Section p="lg">
                   <div className="flex justify-end">
@@ -142,15 +146,7 @@ const Teachers = () => {
                   </div>
 
                   <div className="flex justify-center items-center p-xs">
-                    <Avatar
-                      component="a"
-                      href="https://github.com/rtivital"
-                      target="_blank"
-                      size={160}
-                      // src={v.userURL}
-                      src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
-                      alt="it's me"
-                    />{" "}
+                    <img src={v.userURL} alt="" className="h-[140px]" />
                   </div>
                 </Card.Section>
 
