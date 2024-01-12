@@ -43,7 +43,7 @@ const EditStudent: React.FC = () => {
   };
 
   return (
-    <div className="p-xl h-auto bg-slate-400">
+    <div className="p-xl h-auto">
       <div className="flex items-center gap-sm">
         <div
           className="cursor-pointer text-4xl"
