@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Plus } from "tabler-icons-react";
 import { useNavigate } from "react-router";
 import { Search } from "tabler-icons-react";
-import { Avatar, Tabs } from "@mantine/core";
-import { Card, Image, Text, Button, Group } from "@mantine/core";
-import userImg from "../../assets/images/img5.png";
+import { Tabs } from "@mantine/core";
+import { Card, Text, Button, Group } from "@mantine/core";
+import userImg from "../../assets/images/user-icon.png";
+import cardImg from "../../assets/images/img5.png";
 import { Dots } from "tabler-icons-react";
 import { Edit } from "tabler-icons-react";
 import { Trash } from "tabler-icons-react";
@@ -69,7 +70,9 @@ const Courses = () => {
             onClick={() => navigate("/add-courses")}
             className="flex items-center md:gap-xs gap-[2px] border border-solid md:p-xs p-[2px] cursor-pointer bg-blue-900 text-white rounded-sm"
           >
-            <div className="md:text-base text-xs font-semibold sm:block hidden">Add New Courses</div>
+            <div className="md:text-base text-xs font-semibold sm:block hidden">
+              Add New Courses
+            </div>
             <div className="">
               <Plus size={26} strokeWidth={2} />
             </div>
@@ -105,7 +108,10 @@ const Courses = () => {
 
           <Tabs.Panel value="blocked">Blocked tab content</Tabs.Panel>
 
-          <Tabs.Panel value="all" className="flex gap-sm flex-wrap flex-auto p-sm">
+          <Tabs.Panel
+            value="all"
+            className="flex gap-sm flex-wrap flex-auto p-sm"
+          >
             {CoursesData.map((v, key) => (
               <Card
                 key={key}
@@ -113,18 +119,11 @@ const Courses = () => {
                 padding="lg"
                 radius="md"
                 withBorder
-                className="w-full md:w-1/2 lg:w-1/5 grow"
+                className="w-full md:w-1/2 lg:w-1/5 md:flex-none flex-auto"
               >
-                <Card.Section p="lg">
-                  <Image
-                    // className="object-contain object-center"
-                    // src={v.coursesURL}
-                    src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
-                    height={160}
-                    radius="sm"
-                    alt="Norway"
-                  />
-                </Card.Section>
+                <div className="h-[180px]">
+                  <img src={cardImg} alt="" height='100%' width="100%" />
+                </div>
 
                 <Group mb={14}>
                   <Text fw={700} size="xl">
@@ -133,40 +132,33 @@ const Courses = () => {
                 </Group>
 
                 <Group mb="md" justify="space-between">
-                  <div className="flex gap-xs">
-                    <Avatar
-                      component="a"
-                      href="https://github.com/rtivital"
-                      target="_blank"
-                      size={30}
-                      src={v.userURL}
-                      alt="it's me"
-                    />
+                  <div className="flex items-center gap-xs">
+                    <img src={userImg} alt="" className="h-lg" />
                     <Text fw={500} color="gray">
                       {v.name}
                     </Text>
                   </div>
 
                   <div className="relative inline-block">
-                      <button
-                        onClick={() => toggleDropdown(key)}
-                        className="text-black bg-white px-sm py-[4px] rounded focus:outline-none border-none"
-                      >
-                        <Dots size={24} strokeWidth={2} />
-                      </button>
-                      {openDropdown === key && (
-                        <div className="absolute bg-slate-100 border rounded mt-[4px] right-xl top-none pr-xl z-10">
-                          <ul className="list-none">
-                            <li className="hover:bg-gray-300 flex items-center gap-xs">
-                              <Trash size={24} strokeWidth={2} /> <p>Delete</p>
-                            </li>
-                            <li className="hover:bg-gray-300 flex items-center gap-xs">
-                              <Edit size={24} strokeWidth={2} /> <p>Edit</p>
-                            </li>
-                          </ul>
-                        </div>
-                      )}
-                    </div>
+                    <button
+                      onClick={() => toggleDropdown(key)}
+                      className="text-black bg-white px-sm py-[4px] rounded focus:outline-none border-none"
+                    >
+                      <Dots size={24} strokeWidth={2} />
+                    </button>
+                    {openDropdown === key && (
+                      <div className="absolute bg-slate-100 border rounded mt-[4px] right-xl top-none pr-xl z-10">
+                        <ul className="list-none">
+                          <li className="hover:bg-gray-300 flex items-center gap-xs">
+                            <Trash size={24} strokeWidth={2} /> <p>Delete</p>
+                          </li>
+                          <li className="hover:bg-gray-300 flex items-center gap-xs">
+                            <Edit size={24} strokeWidth={2} /> <p>Edit</p>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 </Group>
 
                 <Button color="blue" fullWidth radius="md" py={8}>
