@@ -53,7 +53,7 @@ const Categories = () => {
           </div>
 
           <div
-            onClick={() => navigate("/add-category")}
+            onClick={() => navigate("/new-category")}
             className="flex items-center md:gap-xs gap-[2px] border border-solid md:p-xs p-[2px] cursor-pointer bg-blue-900 text-white rounded-sm"
           >
             <div className="md:text-base text-xs font-semibold sm:block hidden">Add New Category</div>
