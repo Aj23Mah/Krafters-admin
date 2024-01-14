@@ -10,6 +10,7 @@ import Student from "../pages/Student"
 import AddStudent from "../../partials/AddStudent"
 import Teachers from "../pages/Teachers"
 import EditStudent from "../../partials/EditStudent"
+import Setting from "../pages/Setting"
 // import AddTeacher from "../../partials/AddTeacher"
 
 export const DashboardRoutes  =()=>{
@@ -25,6 +26,7 @@ export const DashboardRoutes  =()=>{
         <Route path="/edit-student" element={<EditStudent />} />
         <Route path="/teachers" element={<Teachers />} />
         {/* <Route path="/add-teacher" element={<AddTeacher />} /> */}
+        <Route path="/setting" element={<Setting />} />
         <Route path="*" element={<Dashboard/>} />
     </Routes>
 }
