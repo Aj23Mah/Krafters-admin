@@ -40,7 +40,7 @@ const EditCategory: React.FC = () => {
   };
 
   return (
-    <div className="p-xl h-screen bg-gray-200">
+    <div className="p-xl h-screen">
       <div className="flex items-center gap-sm">
         <div className="cursor-pointer text-4xl" onClick={()=>navigate('/categories')}>
           <IoIosArrowBack />
