@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AppShell, Box, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Logo from "../../../assets/react.svg";
@@ -68,6 +69,16 @@ const navItem = [
 export function BasicAppShell() {
   const [opened, { toggle }] = useDisclosure();
 
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const closeDropdown = () => {
+    setDropdownVisible(false);
+  };
+
   return (
     <AppShell
       header={{ height: 65 }}
@@ -87,8 +98,21 @@ export function BasicAppShell() {
               />
             </div>
             <div className="flex items-center text-gray-900 gap-sm">
-              <Bell size={30} strokeWidth={2} />
-              <img src={Logo} alt="logo" className="pl-xs" />
+              <div>
+                <Bell size={30} strokeWidth={2} />
+              </div>
+              <div onClick={toggleDropdown} onBlur={closeDropdown} className='relative' >
+                <img src={Logo} alt="logo" className="pl-xs" />
+
+                {/* Dropdown content */}
+                {dropdownVisible && (
+                  <div className="flex flex-col absolute top-xl right-none bg-slate-500 p-sm w-[120px] rounded-lg">
+                    <a href="/profile" className='no-underline text-black font-semibold text-base hover:bg-white py-xs text-center'>Profile</a>
+                    <a href="#" className='no-underline text-black font-semibold text-base hover:bg-white py-xs text-center'>Setting</a>
+                    <a href="#" className='no-underline text-black font-semibold text-base hover:bg-white py-xs text-center'>Log Out</a>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </Box>
