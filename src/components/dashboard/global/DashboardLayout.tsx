@@ -55,7 +55,7 @@ const navItem = [
   },
   {
     label: "Application Settings",
-    path: "/application-setting",
+    path: "/setting",
     icon: <Settings size={24} />,
   },
   {
