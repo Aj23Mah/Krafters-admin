@@ -2,14 +2,19 @@ import React, { useRef, useState } from "react";
 import { CloudUpload } from "tabler-icons-react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router";
+import axios from "axios";
+// import { toast } from 'react-toastify';
 
 const NewCategory: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   processFile(event.target.files?.[0]);
+  // };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     processFile(event.target.files?.[0]);
   };
@@ -39,10 +44,38 @@ const NewCategory: React.FC = () => {
     }
   };
 
+  const [formData, setFormData] = useState({
+    categoryName: "",
+    categoryImg: "",
+  });
+  const handleSubmit = async () => {
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("categoryName", formData.categoryName);
+      formDataToSend.append("categoryImg", selectedFile as File);
+  
+      const response = await axios.post(
+        "http://localhost:3330/category/upload-image",
+        formDataToSend
+      );
+  
+      console.log(response.data);
+      console.log("Category added successfully");
+      // toast.success('Product added successfully')
+    } catch (error) {
+      console.error(error);
+      // toast.error(error.message);
+    }
+  };
+  
+
   return (
-    <div className="p-xl h-screen bg-gray-200">
+    <div className="p-xl h-screen">
       <div className="flex items-center gap-sm">
-        <div className="cursor-pointer text-4xl" onClick={()=>navigate('/categories')}>
+        <div
+          className="cursor-pointer text-4xl"
+          onClick={() => navigate("/categories")}
+        >
           <IoIosArrowBack />
         </div>
         <div className="text-xl font-medium mb-sm">Add an image</div>
@@ -87,6 +120,9 @@ const NewCategory: React.FC = () => {
           <div className="border border-solid lg:w-3/5 w-full rounded overflow-hidden">
             <input
               type="text"
+              // value={categoryName}
+              value={formData.categoryName}
+              onChange={(e) => setFormData({ ...formData, categoryName: e.target.value })}
               placeholder="Enter Category Name"
               className="w-full p-xs text-lg outline-none border-none"
             />
@@ -98,7 +134,10 @@ const NewCategory: React.FC = () => {
         <button className="border border-solid py-xs px-lg text-blue-900 bg-white rounded-md">
           Cancel
         </button>
-        <button className="border border-solid py-xs px-lg bg-blue-900 text-white rounded-md">
+        <button
+          onClick={handleSubmit}
+          className="border border-solid py-xs px-lg bg-blue-900 text-white rounded-md"
+        >
           Create
         </button>
       </div>
