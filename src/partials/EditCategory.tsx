@@ -93,7 +93,6 @@ const EditCategory: React.FC = () => {
               type="file"
               ref={fileInputRef}
               onChange={handleFileChange}
-              value={categoryImg}
               style={{ display: "none" }}
             />
           </div>
@@ -110,7 +109,7 @@ const EditCategory: React.FC = () => {
             <input
               type="text"
               placeholder="Enter Category Name"
-              value={categoryName}
+              // value={categoryName}
               className="w-full p-xs text-lg outline-none border-none"
             />
           </div>
@@ -122,7 +121,7 @@ const EditCategory: React.FC = () => {
           Cancel
         </button>
         <button
-          onClick={handleSubmit}
+          // onClick={handleSubmit}
           className="border border-solid py-xs px-lg bg-blue-900 text-white rounded-md"
         >
           Save
