@@ -5,7 +5,7 @@ import { Search } from "tabler-icons-react";
 import { Tabs } from "@mantine/core";
 import { Card, Text, Button, Group } from "@mantine/core";
 import userImg from "../../assets/images/user-icon.png";
-import cardImg from "../../assets/images/img5.png";
+import cardImg from "../../assets/images/img6.jpg";
 import { Dots } from "tabler-icons-react";
 import { Edit } from "tabler-icons-react";
 import { Trash } from "tabler-icons-react";

@@ -1,43 +1,57 @@
-import { Plus } from 'tabler-icons-react';
-import { useNavigate } from 'react-router';
-import { Edit } from 'tabler-icons-react';
-import { Trash } from 'tabler-icons-react';
-import { Search } from 'tabler-icons-react';
-import img1 from '../../assets/images/img1.png'
-import img2 from '../../assets/images/img2.png'
-import img3 from '../../assets/images/img3.png'
-import img4 from '../../assets/images/img4.png'
-import img5 from '../../assets/images/img5.png'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { Plus } from "tabler-icons-react";
+import { Edit } from "tabler-icons-react";
+import { Trash } from "tabler-icons-react";
+import { Search } from "tabler-icons-react";
+// import img1 from "../../assets/images/img1.png";
+import axios from "axios";
 
 const Categories = () => {
   const navigate = useNavigate();
-  const CategoryData = [
-    {
-      imgURL: img1,
-      name: "Development",
-      date: "Jan 02, 2024",
-    },
-    {
-      imgURL: img2,
-      name: "Design",
-      date: "Dec 15, 2023",
-    },
-    {
-      imgURL: img3,
-      name: "Finance",
-      date: "oct 01, 2024",
-    },
-    {
-      imgURL: img4,
-      name: "Business",
-      date: "Nov 01, 2023",
-    },
-    {
-      imgURL: img5,
-      name: "Marketing",
-      date: "Jan 01, 2023",
-    },
-  ]
+
+  //   // Make the request
+  // async function fetchData() {
+  //   try {
+  //     const response = await axios.get('http://localhost:3330/category');
+  //     console.log(response.data);
+  //     // Handle the data as needed
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //     // Handle the error
+  //   }
+  // }
+
+  // // Call the function when needed
+  // fetchData();
+
+  const [categoryData, setCategoryData] = useState([]);
+  // const [imageUrls, setImageUrls] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3003/category")
+      .then((res) => {
+        console.log("Response data:", res.data.data);
+        setCategoryData(res.data.data);
+      })
+      .catch((error) => console.log("Error fetching data:", error));
+  }, []);
+
+  // const fetchImage = async (image, categoryId) => {
+  //   try {
+  //     const response = await axios.get(
+  //       ``
+  //     );
+  //     setImageUrls((prevUrls) => ({
+  //       ...prevUrls,
+  //       [categoryId]: response.data.data,
+  //     }));
+  //   } catch (error) {
+  //     console.error(`Error fetching image for id ${categoryId}:`, error);
+  //   }
+  // };
+
   return (
     <div className="p-md border border-red-300 border-solid bg-gray-100">
       <div className="flex sm:flex-row flex-col justify-between items-center mb-sm">
@@ -60,48 +74,47 @@ const Categories = () => {
             onClick={() => navigate("/new-category")}
             className="flex items-center md:gap-xs gap-[2px] border border-solid md:p-xs p-[2px] cursor-pointer bg-blue-900 text-white rounded-sm"
           >
-            <div className="md:text-base text-xs font-semibold sm:block hidden">Add New Category</div>
+            <div className="md:text-base text-xs font-semibold sm:block hidden">
+              Add New Category
+            </div>
             <div className="">
               <Plus size={26} strokeWidth={2} />
             </div>
           </div>
         </div>
       </div>
-      
+
       <div className="bg-white border-solid border p-sm">
-        <table className="w-full p-sm border-collapse">
-          <tr className="text-lg font-semibold border-slate-200">
+        <table className="w-full p-sm even:bg-gray-100">
+          <tr className="text-lg font-semibold">
             <td>Name</td>
             <td>Created At</td>
             <td>Action</td>
           </tr>
-          {CategoryData.map((v, key) => (
-            <tr key={key} className='text-md even:bg-gray-100 odd:bg-white border-slate-200'>
-            <td className='flex items-center gap-sm'><p><img src={v.imgURL} alt="" height={64} width={64} /></p> <p>{v.name}</p></td>
-            <td>{v.date}</td>
-            <td className='flex items-center gap-xs'>
-              <p onClick={()=>navigate('/edit-categoy')}><Edit size={28} strokeWidth={2} /></p>
-              <p><Trash size={28} strokeWidth={2} /></p>
-            </td>
-          </tr>
-          ))}
+
+          {categoryData.map((category) => {
+            const { id, categoryName, createdAt } = category;
+            return (
+              <tr className="text-md">
+                <td className="flex items-center gap-sm">
+                  <p>
+                    <img src={`http://localhost:3003/image/get-image/${category.image}`} alt="" height={64} width={64} />
+                  </p>
+                  <p>{categoryName}</p>
+                </td>
+                <td>{createdAt}</td>
+                <td className="flex items-center gap-xs">
+                  <p onClick={() => navigate("/edit-categoy")}>
+                    <Edit size={28} strokeWidth={2} />
+                  </p>
+                  <p>
+                    <Trash size={28} strokeWidth={2} />
+                  </p>
+                </td>
+              </tr>
+            );
+          })}
         </table>
-
-        {/* <div className='flex justify-between font-semibold text-lg mb-xs'>
-          <div>Name</div>
-          <div>Created At</div>
-          <div>Action</div>
-        </div>
-
-        <div className='flex justify-between font-medium text-md mb-xs'>
-          <div className='flex'><img src={img1} alt="" height={64} width={64} /> <p className='ml-sm'>Development</p></div>
-          <div>Jan 2, 2024</div>
-          <div className='flex items-center gap-xs'>
-              <p><Edit size={28} strokeWidth={2} /></p>
-              <p><Trash size={28} strokeWidth={2} /></p>
-            </div>
-        </div> */}
-
       </div>
     </div>
   );

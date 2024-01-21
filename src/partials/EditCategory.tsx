@@ -2,9 +2,10 @@ import React, { useRef, useState } from "react";
 import { CloudUpload } from "tabler-icons-react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router";
+// import axios from "axios";
 
 const EditCategory: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -39,10 +40,30 @@ const EditCategory: React.FC = () => {
     }
   };
 
+  // const formData = useState({
+  //   categoryName: "",
+  //   categoryImg: "",
+  // });
+  // const handleSubmit = async () => {
+  //   try {
+  //     const request = await axios.get(
+  //       "http://localhost:3330/category",
+  //       formData
+  //     );
+  //     console.log(request.data);
+  //     console.log("Category request Sucessfully");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   return (
     <div className="p-xl h-screen">
       <div className="flex items-center gap-sm">
-        <div className="cursor-pointer text-4xl" onClick={()=>navigate('/categories')}>
+        <div
+          className="cursor-pointer text-4xl"
+          onClick={() => navigate("/categories")}
+        >
           <IoIosArrowBack />
         </div>
         <div className="text-xl font-medium mb-sm">Edit Categories</div>
@@ -88,6 +109,7 @@ const EditCategory: React.FC = () => {
             <input
               type="text"
               placeholder="Enter Category Name"
+              // value={categoryName}
               className="w-full p-xs text-lg outline-none border-none"
             />
           </div>
@@ -98,7 +120,10 @@ const EditCategory: React.FC = () => {
         <button className="border border-solid py-xs px-lg text-blue-900 bg-white rounded-md">
           Cancel
         </button>
-        <button className="border border-solid py-xs px-lg bg-blue-900 text-white rounded-md">
+        <button
+          // onClick={handleSubmit}
+          className="border border-solid py-xs px-lg bg-blue-900 text-white rounded-md"
+        >
           Save
         </button>
       </div>
