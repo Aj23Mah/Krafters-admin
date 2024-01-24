@@ -88,7 +88,7 @@ const AddStudent: React.FC = () => {
         </div>
 
         <div className="w-full">
-          <div className="mb-xs text-lg font-medium">Personnal Details</div>
+          <div className="md:text-2xl textx-lg font-semibold">Personnal Details</div>
           <div className="w-full">
             <div className="flex md:flex-row flex-col gap-md mb-sm">
               <div className="md:w-1/2 w-full">
@@ -96,7 +96,7 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="First Name"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
 
@@ -105,7 +105,7 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="Last Name"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
             </div>
@@ -116,7 +116,7 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="e.g janecopper10@gmail.com"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
 
@@ -125,7 +125,7 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="Mobile Number"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
             </div>
@@ -135,7 +135,7 @@ const AddStudent: React.FC = () => {
                 <label className="text-lg mb-sm">Date of Birth</label>
                 <input required
                   type="date"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
 
@@ -151,7 +151,7 @@ const AddStudent: React.FC = () => {
                     { label: "Female", value: "female" },
                     { label: "Other", value: "other" },
                   ]}
-                  className="flex border border-solid rounded-md gap-xs"
+                  className="flex border border-solid border-gray-400 rounded-md gap-xs "
                 />
               </div>
             </div>
@@ -168,7 +168,7 @@ const AddStudent: React.FC = () => {
                     { label: "Active", value: "active" },
                     { label: "Pending", value: "pending" },
                   ]}
-                  className="flex border border-solid rounded-md gap-xs"
+                  className="flex border border-solid border-gray-400 rounded-md gap-xs"
                 />
               </div>
 
@@ -176,7 +176,7 @@ const AddStudent: React.FC = () => {
                 <label className="text-lg mb-sm">Joining Date</label>
                 <input required
                   type="date"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
             </div>
@@ -190,7 +190,7 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="Street Name"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
 
@@ -200,7 +200,7 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="City"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
 
@@ -209,14 +209,14 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="State, Province"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
             </div>
         </div>
 
         <div>
-            <div className="md:text-2xl textx-lg font-semibold">Address Details</div>
+            <div className="md:text-2xl textx-lg font-semibold">Course Details</div>
 
             <div className="flex gap-md mb-sm md:flex-row flex-col">
               <div className="w-full md:w-1/2">
@@ -224,7 +224,7 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="Select Category"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
 
@@ -233,7 +233,7 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="Select Course"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
             </div>
@@ -244,7 +244,7 @@ const AddStudent: React.FC = () => {
                 <input required
                   type="text"
                   placeholder="Select Batch"
-                  className="w-full p-xs text-lg outline-none border-solid"
+                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
                 />
               </div>
         </div>
@@ -253,10 +253,10 @@ const AddStudent: React.FC = () => {
       </div>
 
       <div className="flex justify-end items-end gap-sm">
-        <button className="border border-solid py-xs px-lg text-blue-900 bg-white rounded-md">
+        <button className="border border-solid border-gray-400 rounded-md py-xs px-lg text-blue-900 bg-white">
           Cancel
         </button>
-        <button className="border border-solid py-xs px-lg bg-blue-900 text-white rounded-md">
+        <button className="border border-solid border-gray-400 rounded-md py-xs px-lg bg-blue-900 text-white">
           Create
         </button>
       </div>

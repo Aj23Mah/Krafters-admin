@@ -81,21 +81,21 @@ const Courses = () => {
       </div>
 
       <div className="bg-white border-solid border p-sm">
-        <Tabs defaultValue="gallery">
+        <Tabs variant="outline" defaultValue="all">
           <Tabs.List mb="sm">
-            <Tabs.Tab fw={500} value="active" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="active" size="xl">
               Active Courses
             </Tabs.Tab>
-            <Tabs.Tab fw={500} value="pending" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="pending" size="xl">
               Pending Courses
             </Tabs.Tab>
-            <Tabs.Tab fw={500} value="inactive" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="inactive" size="xl">
               Inactive Courses
             </Tabs.Tab>
-            <Tabs.Tab fw={500} value="blocked" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="blocked" size="xl">
               Blocked Courses
             </Tabs.Tab>
-            <Tabs.Tab fw={500} value="all" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="all" size="xl">
               All Courses
             </Tabs.Tab>
           </Tabs.List>
@@ -126,7 +126,7 @@ const Courses = () => {
                 </div>
 
                 <Group mb={14}>
-                  <Text fw={700} size="xl">
+                  <Text fw={700} size="xl" lineClamp={1}>
                     {v.label}
                   </Text>
                 </Group>

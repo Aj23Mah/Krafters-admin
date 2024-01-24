@@ -183,7 +183,7 @@ const Edit: React.FC = () => {
               </div>
 
               <div className="w-full md:w-1/2">
-                <label className="text-lg mb-sm">Course</label>
+                <label className="text-lg mb-sm">State</label>
                 <input required
                   type="text"
                   placeholder="State"

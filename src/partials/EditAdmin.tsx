@@ -1,11 +1,10 @@
-
 import React, { useRef, useState } from "react";
 import { CloudUpload } from "tabler-icons-react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router";
 import { SegmentedControl } from "@mantine/core";
 
-const EditStudent: React.FC = () => {
+const EditAdmin: React.FC = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState("react");
 
@@ -47,11 +46,11 @@ const EditStudent: React.FC = () => {
       <div className="flex items-center gap-sm">
         <div
           className="cursor-pointer text-4xl"
-          onClick={() => navigate("/student")}
+          onClick={() => navigate("/setting")}
         >
           <IoIosArrowBack />
         </div>
-        <div className="text-xl font-medium mb-sm">Edit Student</div>
+        <div className="text-xl font-medium mb-sm">Edit Admin</div>
       </div>
 
       <div className="flex flex-col lg:flex-row md:gap-xl">
@@ -89,7 +88,7 @@ const EditStudent: React.FC = () => {
         </div>
 
         <div className="w-full">
-          <div className="md:text-2xl textx-lg font-semibold">Personnal Details</div>
+          <div className="md:text-2xl text-lg font-semibold">Personnal Details</div>
           <div className="w-full">
             <div className="flex md:flex-row flex-col gap-md mb-sm">
               <div className="md:w-1/2 w-full">
@@ -152,7 +151,7 @@ const EditStudent: React.FC = () => {
                     { label: "Female", value: "female" },
                     { label: "Other", value: "other" },
                   ]}
-                  className="flex border border-solid rounded-md gap-xs border-gray-400"
+                  className="flex border border-solid border-gray-400 rounded-md gap-xs"
                 />
               </div>
             </div>
@@ -184,7 +183,7 @@ const EditStudent: React.FC = () => {
           </div>
 
         <div>
-            <div className="md:text-2xl textx-lg font-semibold">Address Details</div>
+            <div className="md:text-2xl text-lg font-semibold">Address Details</div>
 
             <div className="w-full mb-sm">
                 <label className="text-lg mb-sm">Address</label>
@@ -216,45 +215,11 @@ const EditStudent: React.FC = () => {
             </div>
         </div>
 
-        <div>
-            <div className="md:text-2xl textx-lg font-semibold">Course Details</div>
-
-            <div className="flex gap-md mb-sm md:flex-row flex-col">
-              <div className="w-full md:w-1/2">
-                <label className="text-lg mb-sm">Category</label>
-                <input required
-                  type="text"
-                  placeholder="Select Category"
-                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
-                />
-              </div>
-
-              <div className="w-full md:w-1/2">
-                <label className="text-lg mb-sm">Course</label>
-                <input required
-                  type="text"
-                  placeholder="Select Course"
-                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
-                />
-              </div>
-            </div>
-
-            
-            <div className="w-full mb-sm">
-                <label className="text-lg mb-sm">Batch</label>
-                <input required
-                  type="text"
-                  placeholder="Select Batch"
-                  className="w-full p-xs text-lg outline-none border-solid border-gray-400 rounded-md"
-                />
-              </div>
-        </div>
-
         </div>
       </div>
 
       <div className="flex justify-end items-end gap-sm">
-        <button className="border border-solid border-gray-400 rounded-md py-xs px-lg text-blue-900 bg-white">
+        <button className="border border-solid border-gray-400 py-xs px-lg text-blue-900 bg-white rounded-md">
           Cancel
         </button>
         <button className="border border-solid border-gray-400 rounded-md py-xs px-lg bg-blue-900 text-white">
@@ -265,4 +230,4 @@ const EditStudent: React.FC = () => {
   );
 };
 
-export default EditStudent;
+export default EditAdmin;

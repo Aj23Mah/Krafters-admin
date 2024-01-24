@@ -12,17 +12,7 @@ const Setting = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Options"); // Initial button text
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-  };
-
-  const StudentData = [
+  const AdminData = [
     {
       name: "Leslie Alexander",
       email: "admin@gmail.com",
@@ -44,6 +34,28 @@ const Setting = () => {
       phone: "0283-555-0029",
     },
   ];
+  const [rowStates, setRowStates] = useState(
+    AdminData.map(() => ({ isOpen: false, selectedOption: "Status..." }))
+  );
+
+  const toggleDropdown = (index) => {
+    setRowStates((prevStates) =>
+      prevStates.map((state, i) =>
+        i === index ? { ...state, isOpen: !state.isOpen } : state
+      )
+    );
+  };
+
+  const handleOptionClick = (index, option) => {
+    setRowStates((prevStates) =>
+      prevStates.map((state, i) =>
+        i === index
+          ? { ...state, selectedOption: option, isOpen: false }
+          : state
+      )
+    );
+  };
+
   // general setting
   const [value, setValue] = useState("react");
 
@@ -80,6 +92,7 @@ const Setting = () => {
     }
   };
 
+
   return (
     <div className="p-md">
       <div className="flex flex-row justify-between items-center">
@@ -88,7 +101,7 @@ const Setting = () => {
         </div>
         <div>
           <a
-            href="#"
+            href="/add-admin"
             className="p-sm rounded-lg no-underline text-md font-bold text-blue-900 bg-gray-400 hover:text-white hover:bg-blue-900"
           >
             Add New Admin
@@ -96,12 +109,12 @@ const Setting = () => {
         </div>
       </div>
       <div>
-        <Tabs defaultValue="gallery">
+        <Tabs variant="outline" defaultValue="admin">
           <Tabs.List mb="sm">
-            <Tabs.Tab fw={500} value="admin" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="admin" size="xl">
               Admin Users
             </Tabs.Tab>
-            <Tabs.Tab fw={500} value="general" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="general" size="xl">
               General Settings
             </Tabs.Tab>
           </Tabs.List>
@@ -116,8 +129,8 @@ const Setting = () => {
                   <td>Status</td>
                   <td>Action</td>
                 </tr>
-                {StudentData.map((v, key) => (
-                  <tr key={key} className="text-md">
+                {AdminData.map((v, index) => (
+                  <tr key={index} className="text-md">
                     <td>{v.name}</td>
                     <td>{v.email}</td>
                     <td>{v.phone}</td>
@@ -126,10 +139,10 @@ const Setting = () => {
                         <div>
                           <button
                             type="button"
-                            onClick={toggleDropdown}
+                            onClick={() => toggleDropdown(index)}
                             className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-sm py-xs bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:bg-gray-200"
                           >
-                            {selectedOption}
+                            {rowStates[index].selectedOption}
                             <svg
                               className="-mr-[4px] ml-xs h-[20px] w-[20px]"
                               xmlns="http://www.w3.org/2000/svg"
@@ -145,45 +158,39 @@ const Setting = () => {
                           </button>
                         </div>
 
-                        {isOpen && (
-                          <div className="origin-top-right absolute right-none mt-xs w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                        {rowStates[index].isOpen && (
+                          <div className="origin-top-right absolute right-none mt-xs w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                             <div
                               className="py-[4px]"
                               role="menu"
                               aria-orientation="vertical"
                               aria-labelledby="options-menu"
                             >
-                              <a
-                                href="#"
-                                className="block no-underline px-sm py-xs text-base text-gray-700 hover:bg-gray-100"
-                                role="menuitem"
-                                onClick={() => handleOptionClick("Active")}
-                              >
-                                Active
-                              </a>
-                              <a
-                                href="#"
-                                className="block no-underline px-sm py-xs text-base text-gray-700 hover:bg-gray-100"
-                                role="menuitem"
-                                onClick={() => handleOptionClick("In Active")}
-                              >
-                                In Active
-                              </a>
-                              <a
-                                href="#"
-                                className="block no-underline px-sm py-xs text-base text-gray-700 hover:bg-gray-100"
-                                role="menuitem"
-                                onClick={() => handleOptionClick("Blocked")}
-                              >
-                                Blocked
-                              </a>
+                              {[
+                                "Active",
+                                "In Active",
+                                "Pending",
+                                "Blocked",
+                              ].map((option) => (
+                                <a
+                                  key={option}
+                                  href="#"
+                                  className="block no-underline px-sm py-xs text-base text-gray-700 hover:bg-gray-100"
+                                  role="menuitem"
+                                  onClick={() =>
+                                    handleOptionClick(index, option)
+                                  }
+                                >
+                                  {option}
+                                </a>
+                              ))}
                             </div>
                           </div>
                         )}
                       </div>
                     </td>
                     <td className="flex items-center gap-xs">
-                      <p onClick={() => navigate("/edit-student")}>
+                      <p onClick={() => navigate("/edit-admin")}>
                         <Edit size={28} strokeWidth={2} />
                       </p>
                       <p>
@@ -234,18 +241,17 @@ const Setting = () => {
                 </div>
 
                 <div className="w-full">
-
-                    <div className="flex gap-md mb-sm md:flex-row flex-col">
-                      <div className="w-full">
-                        <label className="text-lg mb-sm">Website Name</label>
-                        <input
+                  <div className="flex gap-md mb-sm md:flex-row flex-col">
+                    <div className="w-full">
+                      <label className="text-lg mb-sm">Website Name</label>
+                      <input
                         required
                         type="text"
                         placeholder="Street Name"
                         className="w-full p-xs text-lg outline-none border-solid rounded-lg border border-gray-400"
                       />
-                      </div>
                     </div>
+                  </div>
 
                   <div>
                     <div className="md:text-2xl textx-lg font-semibold">
@@ -323,7 +329,6 @@ const Setting = () => {
                     </div>
                   </div>
                   <div>
-
                     <div className="md:text-2xl textx-lg font-semibold">
                       Social Media Links
                     </div>
@@ -337,15 +342,14 @@ const Setting = () => {
                       />
                     </div>
                   </div>
-
                 </div>
               </div>
 
               <div className="flex justify-end items-end gap-sm">
-                <button className="border border-solid py-xs px-lg text-blue-900 bg-white rounded-md">
+                <button className="border border-solid border-gray-400 py-xs px-lg text-blue-900 bg-white rounded-md">
                   Cancel
                 </button>
-                <button className="border border-solid py-xs px-lg bg-blue-900 text-white rounded-md">
+                <button className="border border-solid border-gray-400 py-xs px-lg bg-blue-900 text-white rounded-md">
                   Save
                 </button>
               </div>
