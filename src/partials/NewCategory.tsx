@@ -42,6 +42,11 @@ const NewCategory: React.FC = () => {
     }
   };
 
+  const resetForm = () => {
+    setSelectedFile(null);
+    setImageUrl(null);
+    setCategoryName("");
+  };
 
   const handleCreate = async () => {
     if (selectedFile && categoryName) {
@@ -62,9 +67,7 @@ const NewCategory: React.FC = () => {
         console.log("Category creation successful", response.data);
 
         // Clearing the form data after successful submission
-        setSelectedFile(null);
-        setImageUrl(null);
-        setCategoryName("");
+        resetForm();
       } catch (error) {
         console.error("Error creating category", error);
       }
@@ -73,11 +76,7 @@ const NewCategory: React.FC = () => {
     }
   };
 
-  const resetForm = () => {
-    setSelectedFile(null);
-    setImageUrl(null);
-    setCategoryName("");
-  };
+  
 
   return (
     <div className="p-xl h-screen">
