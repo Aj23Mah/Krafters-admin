@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CloudUpload } from "tabler-icons-react";
 import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router";
-// import axios from "axios";
+import { useNavigate, useParams } from "react-router";
+import axios from "axios";
 
 const EditCategory: React.FC = () => {
   const navigate = useNavigate();
@@ -40,22 +40,58 @@ const EditCategory: React.FC = () => {
     }
   };
 
-  // const formData = useState({
-  //   categoryName: "",
-  //   categoryImg: "",
-  // });
-  // const handleSubmit = async () => {
-  //   try {
-  //     const request = await axios.get(
-  //       "http://localhost:3330/category",
-  //       formData
-  //     );
-  //     console.log(request.data);
-  //     console.log("Category request Sucessfully");
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const [categoryName, setCategoryName] = useState('');
+  // const [categoryId, setCategoryId] = useState(null); // Add a state for category ID
+  const params = useParams();
+const categoryId = params.categoryId;
+  
+  useEffect(() => {
+    // Function to fetch category data
+    const fetchCategory = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3003/category/${categoryId}`);
+        const data = response.data;
+        setCategoryName(data.categoryName);
+        setImageUrl(data.imageUrl); // Assuming `imageUrl` is the field where image URL is stored
+      } catch (error) {
+        console.error("Error fetching category data", error);
+      }
+    };
+  
+    if (categoryId) {
+      fetchCategory();
+    }
+  }, [categoryId]);
+
+  const resetForm = () => {
+    setSelectedFile(null);
+    setImageUrl(null);
+    setCategoryName("");
+  };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("categoryName", categoryName);
+    if (selectedFile) {
+      formData.append("image", selectedFile);
+    }
+  
+    try {
+      let response;
+      if (categoryId) {
+        // Update category
+        response = await axios.put(`http://localhost:3003/category/${categoryId}`, formData);
+      } else {
+        // Create new category
+        response = await axios.post("http://localhost:3003/category", formData);
+      }
+      console.log("Operation successful", response.data);
+      resetForm();
+      // Redirect or update UI as needed
+    } catch (error) {
+      console.error("Error in operation", error);
+    }
+  };
 
   return (
     <div className="p-xl h-screen">
@@ -96,11 +132,11 @@ const EditCategory: React.FC = () => {
               style={{ display: "none" }}
             />
           </div>
-          {selectedFile && (
+          {/* {selectedFile && (
             <p className="text-md my-2">
               Selected File Name: {selectedFile.name}
             </p>
-          )}
+          )} */}
         </div>
 
         <div className="w-full">
@@ -108,8 +144,9 @@ const EditCategory: React.FC = () => {
           <div className="border border-solid lg:w-3/5 w-full rounded overflow-hidden">
             <input
               type="text"
+              value={categoryName}
+              onChange={(e) => setCategoryName(e.target.value)}
               placeholder="Enter Category Name"
-              // value={categoryName}
               className="w-full p-xs text-lg outline-none border-none"
             />
           </div>
@@ -121,7 +158,7 @@ const EditCategory: React.FC = () => {
           Cancel
         </button>
         <button
-          // onClick={handleSubmit}
+          onClick={handleSubmit}
           className="border border-solid py-xs px-lg bg-blue-900 text-white rounded-md"
         >
           Save

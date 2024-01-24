@@ -4,8 +4,11 @@ import { Plus } from "tabler-icons-react";
 import { Edit } from "tabler-icons-react";
 import { Trash } from "tabler-icons-react";
 import { Search } from "tabler-icons-react";
-// import img1 from "../../assets/images/img1.png";
-import axios from "axios";
+// import axios from "axios";
+
+import { APICategory } from "../../API/category.js";
+// import { APIGetImage } from "../../API/category.js";
+import { getImageUrl } from "../../utils/image.helper.js";
 
 const Categories = () => {
   const navigate = useNavigate();
@@ -28,14 +31,23 @@ const Categories = () => {
   const [categoryData, setCategoryData] = useState([]);
   // const [imageUrls, setImageUrls] = useState({});
 
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3003/category")
+  //     .then((res) => {
+  //       console.log("Response data:", res.data.data);
+  //       setCategoryData(res.data.data);
+  //     })
+  //     .catch((error) => console.log("Error fetching data:", error));
+  // }, []);
+
+  const loadCategory = async () => {
+    const res = await APICategory();
+    setCategoryData(res.data.data);
+  };
+
   useEffect(() => {
-    axios
-      .get("http://localhost:3003/category")
-      .then((res) => {
-        console.log("Response data:", res.data.data);
-        setCategoryData(res.data.data);
-      })
-      .catch((error) => console.log("Error fetching data:", error));
+    loadCategory();
   }, []);
 
   // const fetchImage = async (image, categoryId) => {
@@ -53,7 +65,7 @@ const Categories = () => {
   // };
 
   return (
-    <div className="p-md border border-red-300 border-solid bg-gray-100">
+    <div className="p-md bg-gray-100">
       <div className="flex sm:flex-row flex-col justify-between items-center mb-sm">
         <div className="font-semibold lg:text-4xl md:text-xl text-md">
           Category
@@ -85,7 +97,7 @@ const Categories = () => {
       </div>
 
       <div className="bg-white border-solid border p-sm">
-        <table className="w-full p-sm even:bg-gray-100">
+        <table className="w-full p-xs even:bg-gray-100">
           <tr className="text-lg font-semibold">
             <td>Name</td>
             <td>Created At</td>
@@ -93,16 +105,27 @@ const Categories = () => {
           </tr>
 
           {categoryData.map((category) => {
-            const { id, categoryName, createdAt } = category;
+            const { id, categoryName, image, createdAt } = category;
+            const formattedDate = createdAt.split("T")[0]; // Using string manipulation method
+
             return (
               <tr className="text-md">
                 <td className="flex items-center gap-sm">
                   <p>
-                    <img src={`http://localhost:3003/image/get-image/${category.image}`} alt="" height={64} width={64} />
+                    <img
+                      src={getImageUrl(category.image)}
+                      // src={`http://localhost:3003/image/get-image/${category.image}`}
+                      // src={`${APIGetImage()}/${category.image}`}
+                      alt=""
+                      height={64}
+                      width={64}
+                    />
                   </p>
                   <p>{categoryName}</p>
                 </td>
-                <td>{createdAt}</td>
+                {/* <td>{createdAt}</td> */}
+                <td>{formattedDate}</td>
+
                 <td className="flex items-center gap-xs">
                   <p onClick={() => navigate("/edit-categoy")}>
                     <Edit size={28} strokeWidth={2} />

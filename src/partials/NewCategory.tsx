@@ -8,13 +8,11 @@ import axios from "axios";
 const NewCategory: React.FC = () => {
   const navigate = useNavigate();
 
+  const [categoryName, setCategoryName] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   processFile(event.target.files?.[0]);
-  // };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     processFile(event.target.files?.[0]);
   };
@@ -44,29 +42,40 @@ const NewCategory: React.FC = () => {
     }
   };
 
-  const [formData, setFormData] = useState({
-    categoryName: "",
-    categoryImg: "",
-  });
-  const handleSubmit = async () => {
-    try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("categoryName", formData.categoryName);
-      formDataToSend.append("categoryImg", selectedFile as File);
-  
-      const response = await axios.post(
-        "http://localhost:3330/category/upload-image",
-        formDataToSend
-      );
-  
-      console.log(response.data);
-      console.log("Category added successfully");
-      // toast.success('Product added successfully')
-    } catch (error) {
-      console.error(error);
-      // toast.error(error.message);
+  const resetForm = () => {
+    setSelectedFile(null);
+    setImageUrl(null);
+    setCategoryName("");
+  };
+
+  const handleCreate = async () => {
+    if (selectedFile && categoryName) {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+      formData.append("categoryName", categoryName);
+
+      try {
+        const response = await axios.post(
+          "http://localhost:3003/category/upload-image",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        console.log("Category creation successful", response.data);
+
+        // Clearing the form data after successful submission
+        resetForm();
+      } catch (error) {
+        console.error("Error creating category", error);
+      }
+    } else {
+      console.warn("Please select a file and enter a category name");
     }
   };
+
   
 
   return (
@@ -108,11 +117,12 @@ const NewCategory: React.FC = () => {
               style={{ display: "none" }}
             />
           </div>
-          {selectedFile && (
+
+          {/* {selectedFile && (
             <p className="text-md my-2">
               Selected File Name: {selectedFile.name}
             </p>
-          )}
+          )} */}
         </div>
 
         <div className="w-full">
@@ -120,9 +130,9 @@ const NewCategory: React.FC = () => {
           <div className="border border-solid lg:w-3/5 w-full rounded overflow-hidden">
             <input
               type="text"
-              // value={categoryName}
-              value={formData.categoryName}
-              onChange={(e) => setFormData({ ...formData, categoryName: e.target.value })}
+              value={categoryName}
+              onChange={(e) => setCategoryName(e.target.value)}
+              name="categoryName"
               placeholder="Enter Category Name"
               className="w-full p-xs text-lg outline-none border-none"
             />
@@ -131,11 +141,14 @@ const NewCategory: React.FC = () => {
       </div>
 
       <div className="flex justify-end items-end gap-sm mt-sm">
-        <button className="border border-solid py-xs px-lg text-blue-900 bg-white rounded-md">
+        <button
+          onClick={resetForm}
+          className="border border-solid py-xs px-lg text-blue-900 bg-white rounded-md"
+        >
           Cancel
         </button>
         <button
-          onClick={handleSubmit}
+          onClick={handleCreate}
           className="border border-solid py-xs px-lg bg-blue-900 text-white rounded-md"
         >
           Create
