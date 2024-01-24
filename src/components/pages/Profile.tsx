@@ -6,7 +6,7 @@ const Profile = () => {
             <div className="font-semibold lg:text-4xl md:text-xl text-md">
                 Profile
             </div>
-            <a href="/edit" className="text-blue-900 bg-gray-300 hover:text-white hover:bg-blue-900 border-none text-md font-bold py-xs px-sm  cursor-pointer rounded-lg no-underline">
+            <a href="/edit-profile" className="text-blue-900 bg-gray-300 hover:text-white hover:bg-blue-900 border-none text-md font-bold py-xs px-sm  cursor-pointer rounded-lg no-underline">
                 Edit Profile
             </a>
         </div>
