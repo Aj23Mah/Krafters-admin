@@ -4,11 +4,13 @@ import { Plus } from "tabler-icons-react";
 import { Edit } from "tabler-icons-react";
 import { Trash } from "tabler-icons-react";
 import { Search } from "tabler-icons-react";
+// import { Pagination } from "@mantine/core";
 // import axios from "axios";
 
 import { APICategory } from "../../API/category.js";
 // import { APIGetImage } from "../../API/category.js";
 import { getImageUrl } from "../../utils/image.helper.js";
+import axios from "axios";
 
 const Categories = () => {
   const navigate = useNavigate();
@@ -41,14 +43,35 @@ const Categories = () => {
   //     .catch((error) => console.log("Error fetching data:", error));
   // }, []);
 
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(0); // You'll need to determine this from your data
+
   const loadCategory = async () => {
-    const res = await APICategory();
+    const res = await APICategory(); // currentPage //  this to accept page number
     setCategoryData(res.data.data);
+    // setTotalPages(res.data.totalPages); // Set total pages based on response
   };
 
   useEffect(() => {
     loadCategory();
-  }, []);
+  }, []); // currentPage
+
+  const deleteCategory = async (id: string | number) => {
+    console.log("Deleting category with ID:", id); // Add this line for debugging
+
+    await axios.delete(`http://localhost:3003/category/${id}`);
+    try {
+      console.log(`Deleted post with ID ${id}`);
+      // Optionally, you can refresh the category list after deletion
+      loadCategory();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // const handlePageChange = (page: any) => {
+  //   setCurrentPage(page);
+  // };
 
   // const fetchImage = async (image, categoryId) => {
   //   try {
@@ -97,7 +120,7 @@ const Categories = () => {
       </div>
 
       <div className="bg-white border-solid border p-sm">
-        <table className="w-full p-xs even:bg-gray-100">
+        <table className="w-full p-xs">
           <tr className="text-lg font-semibold">
             <td>Name</td>
             <td>Created At</td>
@@ -109,8 +132,8 @@ const Categories = () => {
             const formattedDate = createdAt.split("T")[0]; // Using string manipulation method
 
             return (
-              <tr className="text-md">
-                <td className="flex items-center gap-sm">
+              <tr className="text-md even:bg-gray-100 odd:bg-white">
+                <td className="flex items-center gap-sm pl-sm">
                   <p>
                     <img
                       src={getImageUrl(category.image)}
@@ -130,7 +153,7 @@ const Categories = () => {
                   <p onClick={() => navigate("/edit-categoy")}>
                     <Edit size={28} strokeWidth={2} />
                   </p>
-                  <p>
+                  <p onClick={() => deleteCategory(id)}>
                     <Trash size={28} strokeWidth={2} />
                   </p>
                 </td>
@@ -139,6 +162,17 @@ const Categories = () => {
           })}
         </table>
       </div>
+
+      {/* <div className="flex justify-end pt-md">
+       // {items}
+        <Pagination
+           total={5} siblings={2}
+          page={currentPage}
+          onChange={handlePageChange}
+          total={totalPages}
+        />
+        // onChange={setPage} value={activePage}
+      </div> */}
     </div>
   );
 };

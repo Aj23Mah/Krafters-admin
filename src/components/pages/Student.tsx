@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Pagination } from "@mantine/core";
 
 import { Plus } from "tabler-icons-react";
 import { useNavigate } from "react-router";
@@ -26,28 +27,32 @@ const Student = () => {
   };
 
   const StudentData = [
-    {
+    { 
+      id: 1,
       imgURL: user1,
       name: "Leslie Alexander",
       course: "	Vuejs Courses",
       batch: "1:00 p.m.", // {new Date().toLocaleString() + ""}
       phone: "0283-555-0029",
     },
-    {
+    { 
+      id: 2,
       imgURL: user2,
       name: "Leslie Alexander",
       course: "	Vuejs Courses",
       batch: "1:00 p.m.",
       phone: "0283-555-0029",
     },
-    {
+    { 
+      id: 3,
       imgURL: user3,
       name: "Leslie Alexander",
       course: "	Vuejs Courses",
       batch: "1:00 p.m.",
       phone: "0283-555-0029",
     },
-    {
+    { 
+      id: 4,
       imgURL: user4,
       name: "Leslie Alexander",
       course: "	Vuejs Courses",
@@ -77,6 +82,8 @@ const Student = () => {
       )
     );
   };
+
+
 
   return (
     <div className="p-md border border-red-300 border-solid bg-gray-100">
@@ -122,7 +129,7 @@ const Student = () => {
           </tr>
           {StudentData.map((v, index) => (
             <tr key={index} className="text-md even:bg-gray-100 odd:bg-white">
-              <td className="flex items-center gap-sm">
+              <td className="flex items-center gap-sm pl-sm">
                 <p>
                   <img src={v.imgURL} alt="" height={64} width={64} />
                 </p>
@@ -212,6 +219,11 @@ const Student = () => {
             </tr>
           ))}
         </table>
+      </div>
+
+      <div className="flex justify-end pt-md">
+        {/* {items} */}
+        <Pagination total={5} siblings={2} />  {/* onChange={setPage} value={activePage} */} 
       </div>
     </div>
   );
