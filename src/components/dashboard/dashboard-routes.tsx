@@ -16,6 +16,7 @@ import AddAdmin from "../../partials/AddAdmin"
 import EditAdmin from "../../partials/EditAdmin"
 import FAQ from "../pages/FAQ"
 import UserMessage from "../pages/UserMessage"
+import EditCourse from "../../partials/EditCourse"
 // import AddTeacher from "../../partials/AddTeacher"
 
 export const DashboardRoutes  =()=>{
@@ -23,6 +24,7 @@ export const DashboardRoutes  =()=>{
         <Route path="/categories" element={<Categories/>} />
         <Route path="/courses" element={<Courses/>} />
         <Route path="/new-course" element={<NewCourse />} />
+        <Route path="/edit-course" element={<EditCourse />} />
         <Route path="/new-category" element={<NewCategory />} />
         <Route path="/edit-categoy" element={<EditCategory />} />
         <Route path="/student" element={<Student />} />
