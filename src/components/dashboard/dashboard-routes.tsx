@@ -8,8 +8,11 @@ import NewCategory from "../../partials/NewCategory"
 import EditCategory from "../../partials/EditCategory"
 import Student from "../pages/Student"
 import AddStudent from "../../partials/AddStudent"
-import Teachers from "../pages/Teachers"
 import EditStudent from "../../partials/EditStudent"
+import Teachers from "../pages/Teachers"
+import NewTeacher from "../../partials/NewTeacher"
+import EditTeacher from "../../partials/EditTeacher"
+// import AddTeacher from "../../partials/AddTeacher"
 // import AddTeacher from "../../partials/AddTeacher"
 
 export const DashboardRoutes  =()=>{
@@ -24,7 +27,8 @@ export const DashboardRoutes  =()=>{
         <Route path="/add-student" element={<AddStudent />} />
         <Route path="/edit-student" element={<EditStudent />} />
         <Route path="/teachers" element={<Teachers />} />
-        {/* <Route path="/add-teacher" element={<AddTeacher />} /> */}
+        <Route path="/new-teacher" element={<NewTeacher />} />
+        <Route path="/edit-teacher" element={<EditTeacher />} />
         <Route path="*" element={<Dashboard/>} />
     </Routes>
 }
