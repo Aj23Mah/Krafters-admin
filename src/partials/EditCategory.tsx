@@ -40,27 +40,47 @@ const EditCategory: React.FC = () => {
     }
   };
 
-  const [categoryName, setCategoryName] = useState('');
+  // Edit API handle
+
+  const [categoryName, setCategoryName] = useState("");
   // const [categoryId, setCategoryId] = useState(null); // Add a state for category ID
   const params = useParams();
-const categoryId = params.categoryId;
-  
+  const categoryId = params.categoryId;
+
   useEffect(() => {
     // Function to fetch category data
     const fetchCategory = async () => {
       try {
+        console.log("Fetching category data...");
         const response = await axios.get(`http://localhost:3003/category/${categoryId}`);
         const data = response.data;
+        console.log("Fetched category data:", data);
         setCategoryName(data.categoryName);
-        setImageUrl(data.imageUrl); // Assuming `imageUrl` is the field where image URL is stored
+        setImageUrl(data.imageUrl);
       } catch (error) {
         console.error("Error fetching category data", error);
       }
     };
-  
+
     if (categoryId) {
       fetchCategory();
     }
+
+    // Make the request
+    // const fetchCategory = async () => {
+    //   try {
+    //     const response = await axios.get("http://localhost:3003/category");
+    //     console.log(response.data);
+    //     // Handle the data as needed
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error);
+    //     // Handle the error
+    //   }
+    // };
+
+    // Call the function when needed
+    // fetchCategory();
+
   }, [categoryId]);
 
   const resetForm = () => {
@@ -75,21 +95,26 @@ const categoryId = params.categoryId;
     if (selectedFile) {
       formData.append("image", selectedFile);
     }
-  
+
     try {
       let response;
       if (categoryId) {
         // Update category
-        response = await axios.put(`http://localhost:3003/category/${categoryId}`, formData);
-      } else {
-        // Create new category
-        response = await axios.post("http://localhost:3003/category", formData);
-      }
-      console.log("Operation successful", response.data);
+        response = await axios.put(
+          `http://localhost:3003/category/upload-image/${categoryId}/update`,
+          formData
+        );
+      } 
+      // else {
+      //   // Create new category
+      //   response = await axios.post("http://localhost:3003/category", formData);
+      // }
+      // console.log("Operation successful", response.data);
+
       resetForm();
       // Redirect or update UI as needed
     } catch (error) {
-      console.error("Error in operation", error);
+      console.error("Error updating category", error);
     }
   };
 

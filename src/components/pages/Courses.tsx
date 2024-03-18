@@ -67,7 +67,7 @@ const Courses = () => {
           </div>
 
           <div
-            onClick={() => navigate("/add-courses")}
+            onClick={() => navigate("/new-course")}
             className="flex items-center md:gap-xs gap-[2px] border border-solid md:p-xs p-[2px] cursor-pointer bg-blue-900 text-white rounded-sm"
           >
             <div className="md:text-base text-xs font-semibold sm:block hidden">
@@ -152,7 +152,7 @@ const Courses = () => {
                           <li className="hover:bg-gray-300 flex items-center gap-xs">
                             <Trash size={24} strokeWidth={2} /> <p>Delete</p>
                           </li>
-                          <li className="hover:bg-gray-300 flex items-center gap-xs">
+                          <li className="hover:bg-gray-300 flex items-center gap-xs" onClick={() => navigate("/edit-course")}>
                             <Edit size={24} strokeWidth={2} /> <p>Edit</p>
                           </li>
                         </ul>
