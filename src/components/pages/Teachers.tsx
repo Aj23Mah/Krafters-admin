@@ -81,21 +81,21 @@ const Teachers = () => {
       </div>
 
       <div className="bg-white border-solid border p-sm">
-        <Tabs defaultValue="gallery">
+        <Tabs variant="outline" defaultValue="all">
           <Tabs.List mb="sm">
-            <Tabs.Tab fw={500} value="active" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="active" size="xl">
               Active Teachers
             </Tabs.Tab>
-            <Tabs.Tab fw={500} value="pending" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="pending" size="xl">
               Pending Teachers
             </Tabs.Tab>
-            <Tabs.Tab fw={500} value="inactive" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="inactive" size="xl">
               Inactive Teachers
             </Tabs.Tab>
-            <Tabs.Tab fw={500} value="blocked" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="blocked" size="xl">
               Blocked Teachers
             </Tabs.Tab>
-            <Tabs.Tab fw={500} value="all" size="xl" mb="md">
+            <Tabs.Tab fw={500} value="all" size="xl">
               All Teachers
             </Tabs.Tab>
           </Tabs.List>
